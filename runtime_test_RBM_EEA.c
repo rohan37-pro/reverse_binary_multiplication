@@ -64,7 +64,7 @@ unsigned long long solve_linear_congruence_eea(unsigned long long a, unsigned lo
 
 int main(){
     int NUM_TEST_CASES = 1000;
-    int repeate_tests = 100000;
+    int repeat_tests = 100000;
     unsigned long long *a = (unsigned long long *)malloc(NUM_TEST_CASES * sizeof(unsigned long long));
     unsigned long long *b = (unsigned long long *)malloc(NUM_TEST_CASES * sizeof(unsigned long long));
     unsigned long long *n = (unsigned long long *)malloc(NUM_TEST_CASES * sizeof(unsigned long long));
@@ -89,7 +89,7 @@ int main(){
     int count_difference = 0;
 
     // repeate the test cases to find an avarage time.
-    for (int i=0; i<repeate_tests; i++){
+    for (int i=0; i<repeat_tests; i++){
         // pass test cases to RBM 
         clock_gettime(CLOCK_MONOTONIC, &start);
         for (int i=0; i< NUM_TEST_CASES; i++){
@@ -116,7 +116,7 @@ int main(){
             }
         }
     }
-    printf("after reapeating %d test cases %d times\n",NUM_TEST_CASES, repeate_tests);
+    printf("after reapeating %d test cases %d times\n",NUM_TEST_CASES, repeat_tests);
     printf("total runtime of RBM %f seconds\n", cpu_time_used_rbm);
     printf("total runtime of EEA %f seconds\n", cpu_time_used_eea);
     printf("runtime_of_EEA / runtime_of_RBM = %f\n",cpu_time_used_eea/cpu_time_used_rbm);
