@@ -2,7 +2,7 @@
 # this function find x if : a * x = b mod 2^n  [ where a, b and n are given ]
 def reverse_binary_multiplication(multiplier, target_product, bit_size):
     # make a buffer to the size of the array to bit_size for calculating the product
-    binary_buffer = [0] * bit_size
+    binary_buffer = 0
     missing_factor = 0
 
     # setting the pointer where the first 1 appeared in the binary_multiplier from Least Significant Bit
@@ -12,27 +12,14 @@ def reverse_binary_multiplication(multiplier, target_product, bit_size):
             return
         binary_ptr +=1
 
-    print("binary_ptr = ", binary_ptr)
-    # binary addition of two number
-    def binary_addition(number, buffer, ptr):
-        carry = 0
-        n_ptr = binary_ptr
-        while ptr>=0:
-            number_bit = (number>>n_ptr) & 1
-            buffer_bit = buffer[ptr]
-            buffer[ptr] = buffer_bit ^ number_bit ^ carry
-            carry = (buffer_bit & number_bit) | (number_bit & carry) | (carry & buffer_bit)
-            ptr -= 1
-            n_ptr +=1
-
     
     factor_ptr = 0
     target_ptr = binary_ptr
     while target_ptr < bit_size:
         buffer_index = bit_size - target_ptr -1 
-        if  binary_buffer[buffer_index] != (target_product>>target_ptr) & 1: 
+        if  binary_buffer>>target_ptr & 1 != (target_product>>target_ptr) & 1: 
             missing_factor += 1<<factor_ptr
-            binary_addition(multiplier, binary_buffer, buffer_index)
+            binary_buffer += multiplier << factor_ptr
             target_ptr += 1
             factor_ptr+=1
         else:
