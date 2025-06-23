@@ -3,7 +3,7 @@
 #include <time.h>
 
 
-unsigned long long revere_binary_multiplication( unsigned long long multiplier, unsigned long long target_product, int bit_size){
+unsigned long long reverse_binary_multiplication( unsigned long long multiplier, unsigned long long target_product, int bit_size){
 
     unsigned long long current_product_sum = 0;
     unsigned long long missing_factor = 0;
@@ -64,7 +64,7 @@ unsigned long long solve_linear_congruence_eea(unsigned long long a, unsigned lo
 
 int main(){
     int NUM_TEST_CASES = 1000;
-    int repeate_tests = 10000;
+    int repeate_tests = 100000;
     unsigned long long *a = (unsigned long long *)malloc(NUM_TEST_CASES * sizeof(unsigned long long));
     unsigned long long *b = (unsigned long long *)malloc(NUM_TEST_CASES * sizeof(unsigned long long));
     unsigned long long *n = (unsigned long long *)malloc(NUM_TEST_CASES * sizeof(unsigned long long));
@@ -79,10 +79,10 @@ int main(){
     }
     
     for (int i = 0; i<NUM_TEST_CASES; i++){
-        n[i] = rand() % (63 -2) + 3;
+        n[i] = rand() % 61 + 3;
         m[i] = 1ULL << n[i];
-        a[i] = rand() % (m[i] - 1) + 1;
-        b[i] = rand() % (m[i] - 1) + 1;
+        a[i] = rand() % (m[i] - 2) + 1;
+        b[i] = rand() % (m[i] - 2) + 1;
     }
     struct timespec start, end;
     double cpu_time_used_rbm=0, cpu_time_used_eea=0;
@@ -93,7 +93,7 @@ int main(){
         // pass test cases to RBM 
         clock_gettime(CLOCK_MONOTONIC, &start);
         for (int i=0; i< NUM_TEST_CASES; i++){
-            missing_factor_RBM[i] = revere_binary_multiplication(a[i], b[i], n[i]);
+            missing_factor_RBM[i] = reverse_binary_multiplication(a[i], b[i], n[i]);
         }
         clock_gettime(CLOCK_MONOTONIC, &end);
         cpu_time_used_rbm += (end.tv_sec - start.tv_sec) + (double)(end.tv_nsec - start.tv_nsec) / 1e9;
@@ -117,10 +117,10 @@ int main(){
         }
     }
     printf("after reapeating %d test cases %d times\n",NUM_TEST_CASES, repeate_tests);
-    printf("RBM runtime %f seconds\n", cpu_time_used_rbm);
-    printf("EEA runtime %f seconds\n", cpu_time_used_eea);
-    printf("runtime difference RBM-EEA=%f sec..\n", cpu_time_used_rbm-cpu_time_used_eea);
-    printf("test cases %d \nnumber of different answer for all (test_case*repeat)= %d\n",NUM_TEST_CASES, count_difference);
+    printf("total runtime of RBM %f seconds\n", cpu_time_used_rbm);
+    printf("total runtime of EEA %f seconds\n", cpu_time_used_eea);
+    printf("runtime_of_EEA / runtime_of_RBM = %f\n",cpu_time_used_eea/cpu_time_used_rbm);
+    printf("number of different answer for all (test_case*repeat)= %d\n", count_difference);
 
     return 0;
 }
