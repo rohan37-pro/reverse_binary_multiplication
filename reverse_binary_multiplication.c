@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-unsigned long long revere_binary_multiplication( unsigned long long multiplier, unsigned long long target_product, int bit_size){
+unsigned long long reverse_binary_multiplication( unsigned long long multiplier, unsigned long long target_product, int bit_size){
 
     unsigned long long current_product_sum = 0;
     unsigned long long missing_factor = 0;
@@ -40,7 +40,7 @@ int main(){
     printf("Enter n: ");
     scanf("%llu",&n);
 
-    x = revere_binary_multiplication(a, b, n);
+    x = reverse_binary_multiplication(a, b, n);
     if (x==0)
         printf("Solution Doesn't Exist\n");
     else
